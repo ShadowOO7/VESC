@@ -1,0 +1,15 @@
+# Large data and model files — do NOT push to GitHub
+data/
+models/
+outputs/
+checkpoints/
+__pycache__/
+*.pyc
+*.pyo
+*.log
+*.json
+*.pt
+*.safetensors
+*.bin
+.env
+*.zip

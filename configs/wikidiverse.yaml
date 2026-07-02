@@ -1,0 +1,45 @@
+dataset: wikidiverse
+
+paths:
+  kb_file:            data/WikiDiverse/kb_entity.json
+  mention_images:     data/WikiDiverse/mention_image/
+  ram_model:          models/recognize-anything/
+  llava_model:        models/llava-v1.6-mistral-7b-hf/
+  llama_model:        models/Meta-Llama-3-8B-Instruct/
+  sfr_model:          models/SFR-Embedding-Mistral/
+  qwen_model:         models/Qwen2-7B-Instruct/
+  meta_train:         outputs/wikidiverse/meta_train.json
+  meta_valid:         outputs/wikidiverse/meta_valid.json
+  meta_test:          outputs/wikidiverse/meta_test.json
+  captions:           outputs/wikidiverse/captions.json
+  entity_summaries:   outputs/wikidiverse/entity_summaries.json
+  entity_embeddings:  outputs/wikidiverse/entity_embeddings.json
+  hybrid_train:       outputs/wikidiverse/hybrid_top50_train.json
+  hybrid_valid:       outputs/wikidiverse/hybrid_top50_valid.json
+  hybrid_test:        outputs/wikidiverse/hybrid_top50_test.json
+  ready_train:        outputs/wikidiverse/ready_train.json
+  ready_valid:        outputs/wikidiverse/ready_valid.json
+  ready_test:         outputs/wikidiverse/ready_test.json
+  stage1_topk_train:  outputs/wikidiverse/stage1_topk_train.json
+  stage1_topk_val:    outputs/wikidiverse/stage1_topk_valid.json
+  cross_encoder_ckpt: checkpoints/wikidiverse/cross_encoder/
+  lora_ckpt:          checkpoints/wikidiverse/lora/
+  results:            outputs/wikidiverse/test_results.json
+
+training:
+  cross_encoder:
+    num_epochs: 3
+    batch_size: 1
+    lr: 2.0e-6
+    fp16: true
+  llm:
+    num_epochs: 4
+    batch_size: 1
+    lr: 1.0e-5
+    fp16: false
+    lora_r: 16
+    top_k: 10
+
+hybrid:
+  alpha: 0.2
+  top_k: 50

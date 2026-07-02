@@ -1,0 +1,45 @@
+dataset: wikimel
+
+paths:
+  kb_file:            data/WikiMEL/kb_entity_desc.json
+  mention_images:     data/WikiMEL/mention_image/
+  ram_model:          models/recognize-anything/
+  llava_model:        models/llava-v1.6-mistral-7b-hf/
+  llama_model:        models/Meta-Llama-3-8B-Instruct/
+  sfr_model:          models/SFR-Embedding-Mistral/
+  qwen_model:         models/Qwen2-7B-Instruct/
+  meta_train:         outputs/wikimel/meta_train.json
+  meta_valid:         outputs/wikimel/meta_valid.json
+  meta_test:          outputs/wikimel/meta_test.json
+  captions:           outputs/wikimel/captions.json
+  entity_summaries:   outputs/wikimel/entity_summaries.json
+  entity_embeddings:  outputs/wikimel/entity_embeddings.json
+  hybrid_train:       outputs/wikimel/hybrid_top50_train.json
+  hybrid_valid:       outputs/wikimel/hybrid_top50_valid.json
+  hybrid_test:        outputs/wikimel/hybrid_top50_test.json
+  ready_train:        outputs/wikimel/ready_train.json
+  ready_valid:        outputs/wikimel/ready_valid.json
+  ready_test:         outputs/wikimel/ready_test.json
+  stage1_topk_train:  outputs/wikimel/stage1_topk_train.json
+  stage1_topk_val:    outputs/wikimel/stage1_topk_valid.json
+  cross_encoder_ckpt: checkpoints/wikimel/cross_encoder/
+  lora_ckpt:          checkpoints/wikimel/lora/
+  results:            outputs/wikimel/test_results.json
+
+training:
+  cross_encoder:
+    num_epochs: 3
+    batch_size: 1
+    lr: 2.0e-6
+    fp16: true
+  llm:
+    num_epochs: 4
+    batch_size: 1
+    lr: 1.0e-5
+    fp16: false
+    lora_r: 32
+    top_k: 10
+
+hybrid:
+  alpha: 0.2
+  top_k: 50

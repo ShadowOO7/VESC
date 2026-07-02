@@ -1,0 +1,45 @@
+dataset: richpedia
+
+paths:
+  kb_file:            data/RichpediaMEL/kb_entity.json
+  mention_images:     data/RichpediaMEL/images/
+  ram_model:          models/recognize-anything/
+  llava_model:        models/llava-v1.6-mistral-7b-hf/
+  llama_model:        models/Meta-Llama-3-8B-Instruct/
+  sfr_model:          models/SFR-Embedding-Mistral/
+  qwen_model:         models/Qwen2-7B-Instruct/
+  meta_train:         outputs/richpedia/meta_train.json
+  meta_valid:         outputs/richpedia/meta_valid.json
+  meta_test:          outputs/richpedia/meta_test.json
+  captions:           outputs/richpedia/captions.json
+  entity_summaries:   outputs/richpedia/entity_summaries.json
+  entity_embeddings:  outputs/richpedia/entity_embeddings.json
+  hybrid_train:       outputs/richpedia/hybrid_top50_train.json
+  hybrid_valid:       outputs/richpedia/hybrid_top50_valid.json
+  hybrid_test:        outputs/richpedia/hybrid_top50_test.json
+  ready_train:        outputs/richpedia/ready_train.json
+  ready_valid:        outputs/richpedia/ready_valid.json
+  ready_test:         outputs/richpedia/ready_test.json
+  stage1_topk_train:  outputs/richpedia/stage1_topk_train.json
+  stage1_topk_val:    outputs/richpedia/stage1_topk_valid.json
+  cross_encoder_ckpt: checkpoints/richpedia/cross_encoder/
+  lora_ckpt:          checkpoints/richpedia/lora/
+  results:            outputs/richpedia/test_results.json
+
+training:
+  cross_encoder:
+    num_epochs: 3
+    batch_size: 1
+    lr: 2.0e-6
+    fp16: true
+  llm:
+    num_epochs: 4
+    batch_size: 1
+    lr: 1.0e-5
+    fp16: false
+    lora_r: 16
+    top_k: 10
+
+hybrid:
+  alpha: 0.2
+  top_k: 50
